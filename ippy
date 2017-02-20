@@ -16,7 +16,10 @@ if not ippy_myip == ippy_conf['myip']:
     s.login(ippy_conf['smtp']['username'], str(ippy_conf['smtp']['password'])) 
     s.sendmail(
         ippy_conf['smtp']['from'],[ippy_conf['mail']], 
-        "From: %1\nSubject: ippy\n\nhi!" % ippy_conf['smtp']['from']
+        "From: IPPY <%s>\nSubject: IPPY\n\n%s" % (
+            ippy_conf['smtp']['from'], 
+            "\n".join(ippy_conf['send']).replace('__myip__', ippy_myip)
+        ) 
     )         
      
 
