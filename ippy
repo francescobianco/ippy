@@ -14,12 +14,10 @@ if not ippy_myip == ippy_conf['myip']:
     dump(ippy_conf, open(ippy_file,'wb'), indent=4, sort_keys=True)
     s = SMTP(ippy_conf['smtp']['host'])
     s.login(ippy_conf['smtp']['username'], str(ippy_conf['smtp']['password'])) 
-    s.sendmail(ippy_conf['smtp']['from'], [ippy_conf['mail']], """
-    From: nightnas <nightnas@nightnas.it>
-    Subject: SMTP e-mail test
-
-    This is a test e-mail message.
-    """)         
+    s.sendmail(
+        ippy_conf['smtp']['from'],[ippy_conf['mail']], 
+        "From: %1\nSubject: ippy\n\nhi!" % ippy_conf['smtp']['from']
+    )         
      
 
 
