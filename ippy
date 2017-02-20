@@ -6,34 +6,27 @@ from urllib2 import urlopen
 
 ippy_file = 'ippy2.json';
 ippy_conf = load(open(ippy_file));
+ippy_echo = load(urlopen(ippy_conf['echo']['uri']))
+ippy_myip = ippy_echo[ippy_conf['echo']['key']]
 
-print ippy
+if not ippy_myip == ippy_conf['myip']:
+    ippy_conf['myip'] = ippy_myip 
+    dump(ippy_conf, open(ippy_file,'wb'), indent=4, sort_keys=True)
+    s = SMTP(ippy_conf['smtp']['host'])
+    s.login(ippy_conf['smtp']['username'], str(ippy_conf['smtp']['password'])) 
+    s.sendmail(ippy_conf['smtp']['from'], [ippy_conf['mail']], """
+    From: nightnas <nightnas@nightnas.it>
+    Subject: SMTP e-mail test
 
-"""
-new_ip = load(urlopen('http://jsonip.com'))['ip']
-
-old_ip = load(open('watchip.json'))['ip']
-
-if not new_ip = old_ip: 
-	
-	dump({'ip':new_ip}, open('watchip.json','wb'))
-"""
+    This is a test e-mail message.
+    """)         
+     
 
 
 
 
-message = """From: nightnas <nightnas@nightnas.it>
-Subject: SMTP e-mail test
 
-This is a test e-mail message.
-"""
 
-"""
-s = smtplib.SMTP('m-rb.th.seeweb.it')
-s.login('javanile.org16421', 'metal99') 
-s.sendmail('nightnas@nightnas.it', ['info.francescobianco@gmail.com'], message)         
-print "Successfully sent email"
-"""
 
 
 

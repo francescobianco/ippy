@@ -1,8 +1,15 @@
 {
-    
+    "myip": "",    
+    "echo": {
+        "uri": "",
+        "key": "ip"
+    },
     "smtp": {
-        "host": "localhost"    
-    }
-
-
+        "host": "localhost",
+        "port": "",
+        "username": "",
+        "password": "",
+        "from": ""    
+    },
+    "mail": ""
 }
